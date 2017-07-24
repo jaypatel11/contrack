@@ -1,5 +1,5 @@
 
-package com.contrack.model;
+package com.contrack.model.request;
 
 import com.fasterxml.jackson.annotation.*;
 import com.google.common.base.MoreObjects;
