@@ -1,6 +1,7 @@
 package com.contrack.model;
 
 import com.google.common.collect.Maps;
+import org.springframework.util.StringUtils;
 
 import java.util.Arrays;
 import java.util.Map;
@@ -26,7 +27,14 @@ public enum Chamber {
     }
 
     public static Chamber toChamber(String input) {
-        return mapping.containsKey(input) ?
-                mapping.get(input) : BOTH;
+
+        if (StringUtils.isEmpty(input)) {
+            return BOTH;
+        }
+
+        if (!mapping.containsKey(input)) {
+            throw new IllegalArgumentException("Unknown value for chamber:" + input);
+        }
+        return mapping.get(input);
     }
 }

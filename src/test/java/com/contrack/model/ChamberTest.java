@@ -2,24 +2,17 @@ package com.contrack.model;
 
 import org.junit.Test;
 
+import java.util.Arrays;
+
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.MatcherAssert.assertThat;
 
 public class ChamberTest {
 
     @Test
-    public void testMappingSenate() {
-        assertThat(Chamber.toChamber("senate"), equalTo(Chamber.SENATE));
-    }
-
-    @Test
-    public void testMappingHouse() {
-        assertThat(Chamber.toChamber("house"), equalTo(Chamber.HOUSE));
-    }
-
-    @Test
-    public void testMappingBoth() {
-        assertThat(Chamber.toChamber("both"), equalTo(Chamber.BOTH));
+    public void testAllMappings() {
+        Arrays.stream(Chamber.values()).forEach(chamber ->
+        assertThat(Chamber.toChamber(chamber.name().toLowerCase()), equalTo(chamber)));
     }
 
     @Test
@@ -28,8 +21,8 @@ public class ChamberTest {
         assertThat(Chamber.toChamber(""), equalTo(Chamber.BOTH));
     }
 
-    @Test
-    public void testMathUnknownValue() {
-        assertThat(Chamber.toChamber("covfefe"), equalTo(Chamber.BOTH));
+    @Test(expected = IllegalArgumentException.class)
+    public void testUnknownValue() {
+        Chamber.toChamber("covfefe");
     }
 }
